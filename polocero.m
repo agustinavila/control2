@@ -12,41 +12,35 @@ function [polo,cero] = polocero(sd,tita,ops)
 % Juan Agustin Avila
 % Noviembre 2020
 % Matlab r2020b
-
+titamax=phase(sd)*180/pi;
+if(titamax<tita)
+    error("El angulo a compensar es mayor al maximo angulo permitido, es necesario dos compensadores");
+end
 switch nargin
     case 3
         %parsear el tercer argumento
-        disp("en contruccion")
         if strcmp("real",ops)
-           disp("Calculando con el metodo de la parte real")
-           cero=real(sd);
-           titacero=phase(sd-cero)*180/pi;
-           polo=real(sd)-imag(sd)*((1/tan((titacero-tita)*pi/180))+(1/tan(titacero*pi/180)));
+            disp("Calculando con el metodo de la parte real")
+            cero=real(sd);
         elseif isreal(ops)
             disp("cancelando el polo ubicado en "+ops)
             cero=ops;
-            titacero=phase(sd-cero)*180/pi;
-            partepolo=1/tan((titacero-tita)*pi/180);
-            partecero=1/tan(titacero*pi/180);
-            polo=real(sd)-imag(sd)*(abs(partepolo)+abs(partecero));
         else
-            disp("Argumento invalido");
-            return;
+            error("Argumento invalido");
         end
+        titacero=phase(sd-cero)*180/pi;
+        if titacero<tita
+            error("el cero es menor al valor minimo de cero realizable (%.5f)",real(sd)-imag(sd)/tan(tita*pi/180))
+        end
+        polo=real(sd)-imag(sd)*1/tan((titacero-tita)*pi/180);
     case 2
         %utiliza el metodo de la bisectriz
-        TitaMax=phase(sd)*180/pi;               %obtiene el tita maximo para ese punto
-        bisectriz=TitaMax/2;             %calcula bisectriz
-        TitaPolo=bisectriz-(tita/2);     %obtiene angulo del polo
-        TitaCero=bisectriz+(tita/2);     %obtiene angulo del cero
-        polo= real(sd)-imag(sd)/tan(TitaPolo*pi/180); %obtiene posicion del polo
-        cero= real(sd)-imag(sd)/tan(TitaCero*pi/180);%obtiene posicion del cero
+        titapolo=(titamax-tita)/2;     %obtiene angulo del polo
+        titacero=(titamax+tita)/2;     %obtiene angulo del cero
+        polo= real(sd)-imag(sd)/tan(titapolo*pi/180); %obtiene posicion del polo
+        cero= real(sd)-imag(sd)/tan(titacero*pi/180);%obtiene posicion del cero
     otherwise
         %print ayuda o algo asi.
-        disp("le pifiaste hermano");
+        error("le pifiaste hermano");
 end
-
-
-
-
 end
