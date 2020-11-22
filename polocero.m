@@ -1,4 +1,4 @@
-function [polo,cero] = polocero(sd,tita,ops)
+function [polo,cero,titamax] = polocero(sd,tita,ops)
 % POLOCERO(sd,tita) devuelve la ubicacion del polo y el cero de un
 % compensador de adelanto de fase. Sin mas argumentos, utiliza el metodo de
 % la bisectriz.
@@ -8,13 +8,13 @@ function [polo,cero] = polocero(sd,tita,ops)
 %
 % POLOCERO(sd,tita,sp) utiliza un punto dado (ej un polo dominante) para
 % colocar el cero en ese punto y cancelarlo.
-%
+
 % Juan Agustin Avila
 % Noviembre 2020
 % Matlab r2020b
 titamax=phase(sd)*180/pi;
 if(titamax<tita)
-    error("El angulo a compensar es mayor al maximo angulo permitido, es necesario dos compensadores");
+    error('Polocero:Titamax',"El angulo a compensar es mayor al maximo angulo permitido, es necesario dos compensadores");
 end
 switch nargin
     case 3
@@ -26,11 +26,11 @@ switch nargin
             disp("cancelando el polo ubicado en "+ops)
             cero=ops;
         else
-            error("Argumento invalido");
+            error('Polocero:arginvalido',"Argumento invalido");
         end
         titacero=phase(sd-cero)*180/pi;
         if titacero<tita
-            error("el cero es menor al valor minimo de cero realizable (%.5f)",real(sd)-imag(sd)/tan(tita*pi/180))
+            error('Polocero:ceromin',"el cero es menor al valor minimo de cero realizable (%.5f)",real(sd)-imag(sd)/tan(tita*pi/180))
         end
         polo=real(sd)-imag(sd)*1/tan((titacero-tita)*pi/180);
     case 2
@@ -41,6 +41,6 @@ switch nargin
         cero= real(sd)-imag(sd)/tan(titacero*pi/180);%obtiene posicion del cero
     otherwise
         %print ayuda o algo asi.
-        error("le pifiaste hermano");
+        error('Polocero:arginvalido',"Argumento invalido");
 end
 end
