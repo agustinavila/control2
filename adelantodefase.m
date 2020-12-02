@@ -1,4 +1,4 @@
-function [compensador1,sd,t,alfa] = adelantodefase(planta,os,ts,sd)
+function [compensador1,sd] = adelantodefase(planta,os,ts,sd)
 % [Gadelanto,sd]=ADELANTODEFASE(planta,os,ts) 
 % devuelve la funcion de transferencia de un compensador de adelanto
 % de fase con un oveshoot y tiempo de establecimiento dado, para 
@@ -23,8 +23,8 @@ catch ME
         cero=[cero cero];
     end
 end
-t=-1/cero(1) ;               %obtiene el t
-alfa=-1/(polo(1)*t);         %obtiene el alfa
+t=-1/cero(1) ;                                 %obtiene el t
+alfa=-1/(polo(1)*t);                           %obtiene el alfa
 Kc=abs((alfa*t*sd)+1)/(alfa*abs((t*sd)+1)*Gplanta); %obtiene el kc
 compensador1=zpk(cero,polo,Kc);             %genera la ft
 end
