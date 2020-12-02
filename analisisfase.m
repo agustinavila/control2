@@ -1,10 +1,10 @@
-function grados = analisisfase(sd,polo,cero)
+function [fase,ganancia] = analisisfase(sd,planta)
 % ANALISISFASE(sd,polo,cero) devuelve el atraso/adelanto de fase que agrega
 % el compensador en el punto de prueba sd.
 
 % Agustin Avila
 % Noviembre 2020
 % Matlab r2020b
-grados=(phase(sd-cero)-phase(sd-polo))*180/pi;
-
+fase=phase(evalfr(planta,sd))*180/pi ;  %obtiene la ganancia de fase necesaria en el punto
+ganancia=abs(evalfr(planta,sd));             %obtiene la ganancia en el punto
 end
