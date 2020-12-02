@@ -16,9 +16,9 @@ function [centroide,angulos,raices,salida,llegada,routha]=lugardelasraices(L)
 syms k;
 [num,den]=tfdata(L,'v');    %obtiene numerador y denom como vectores
 pc=num*k+den;
-disp("1 - Cantidad de ramas: "+length(pc));
-disp("2 - El lugar debe ser simetrico respecto al eje real");
 [p,z]=pzmap(L);
+disp("1 - Cantidad de ramas: "+length(p));
+disp("2 - El lugar debe ser simetrico respecto al eje real");
 disp("3 - Segmentos reales:");
 pz=sort([p' z']);
 reales=[];
@@ -27,6 +27,7 @@ for i=1:length(pz)
         reales=[reales pz(i)];
     end
 end
+reales=fliplr(reales);
 for i=1:2:length(reales)
     try
         superior=reales(i+1);
@@ -56,11 +57,13 @@ try
     %L_asintota=zpk([],polos,1);
 catch exception
     disp("No se pudo calcular las asintotas");
-    disp("6 - Conservacion de la suma de las raices:");
-    %chequea los lugares, no se si se pueden evaluar con rlocus
-    %K=0:.01:100;
-    %rlocus(L,K)
 end
+
+disp("6 - Conservacion de la suma de las raices:");
+%chequea los lugares, no se si se pueden evaluar con rlocus
+%K=0:.01:100;
+%rlocus(L,K)
+
 disp("7 - puntos de ruptura en el eje real:");
 syms s;
 ecpolo=0;eccero=0;
@@ -72,13 +75,18 @@ for i=1:length(z)
 end
 try
     [numpolo denpolo]=numden(collect(ecpolo));
+    try
     [numcero dencero]=numden(collect(eccero));
+    catch exception
+        numcero=1;dencero=1;
+    end
     ecuacion=collect((numpolo*dencero)-(numcero*denpolo));
     ecuacion=coeffs(ecuacion,s,'All');
     %ecuacion=fliplr(ecuacion);
     raices=double(roots(ecuacion));
     disp("Los puntos de ruptura están en:");
     disp(real(raices));
+    disp("(Revisar que esten dentro del trayecto sobre el eje real)");
 catch exception
     disp("No hay puntos de ruptura");
 end
