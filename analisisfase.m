@@ -1,4 +1,4 @@
-function [fase,ganancia] = analisisfase(sd,planta)
+function [fase,ganancia] = analisisfase(planta,sd)
 % ANALISISFASE(sd,planta) devuelve el atraso/adelanto de fase de una planta
 % en un punto de interes sd.
 % [fase,ganancia] = analisisfase(sd,planta) devuelve ambos valores.
