@@ -9,7 +9,7 @@ function Gatraso = atrasodefase(K,Kc,T)
 %matlab r2020b
 
 alfa=Kc/K;
-if nargin<4
+if nargin<3
 T=2;
 end
 Gatraso=zpk(-1/T,-1/(alfa*T),1);
