@@ -1,4 +1,4 @@
-function sd = puntosd(OS,Ts)
+function [sd,dseta,wn] = puntosd(OS,Ts)
 % PUNTOSD  devuelve el punto complejo que satisface
 % las especificaciones temporales requeridas.
 %
@@ -9,7 +9,7 @@ function sd = puntosd(OS,Ts)
 % Juan Agustin Avila
 % Noviembre 2020
 % Matlab r2020b
-a=(1/pi)*log(OS/100);
+a=-(1/pi)*log(OS/100);
 dseta=a/(sqrt(1+a^2));
 wn=4/(dseta*Ts);
 sd=-dseta*wn+abs((wn*sqrt(1-dseta^2)))*1i;
