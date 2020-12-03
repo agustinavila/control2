@@ -78,7 +78,7 @@ try
     try
     [numcero dencero]=numden(collect(eccero));
     catch exception
-        numcero=1;dencero=1;
+        numcero=0;dencero=1;
     end
     ecuacion=collect((numpolo*dencero)-(numcero*denpolo));
     ecuacion=coeffs(ecuacion,s,'All');
@@ -99,12 +99,14 @@ for i=1:length(p)
     for j=1:length(p)
         if i~=j
             %calcula
-            salida(i)=salida(i)-phase(p(i)+.001-p(j));
+            prueba=.01*(randn(1)+(randn(1)*1i));
+            salida(i)=salida(i)-phase(p(i)+prueba-p(j));
         end
     end
     for j=1:length(z)
         %calcula
-        salida(i)=salida(i)+phase(p(i)+.001-z(j));
+        prueba=.01*(randn(1)+(randn(1)*1i));
+        salida(i)=salida(i)+phase(p(i)+prueba-z(j));
     end
     salida(i)=(salida(i)*180/pi)-180;
     salida(i)=mod(salida(i),360);
@@ -115,12 +117,14 @@ for i=1:length(z)
     for j=1:length(z)
         if i~=j
             %calcula
-            llegada(i)=llegada(i)+phase(z(i)+.001-z(j));
+            prueba=.01*(randn(1)+(randn(1)*1i));
+            llegada(i)=llegada(i)+phase(z(i)+prueba-z(j));
         end
     end
     for j=1:length(p)
         %calcula
-        llegada(i)=llegada(i)-phase(z(i)+.001-p(j));
+        prueba=.01*(randn(1)+(randn(1)*1i));
+        llegada(i)=llegada(i)-phase(z(i)+prueba-p(j));
     end
     llegada(i)=(llegada(i)*180/pi)-180;
     llegada(i)=mod(llegada(i),360);
