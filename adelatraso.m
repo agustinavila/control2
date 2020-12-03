@@ -1,6 +1,16 @@
 function [Gadat,k,t1,t2,alfa,beta] = adelatraso(L,os,ts,Kc,sd,t2)
-% [Gadat,k,t1,t2,alfa,beta] = ADELATRASO(L,sd) devuelve un compensador de 
-% adelanto-atraso de 1 grado de libertad
+% [Gadat,k,t1,t2,alfa,beta] = ADELATRASO(L,os,ts,Kc,sd,t2) devuelve
+% un compensador de adelanto-atraso de 1 grado de libertad, siendo
+% obligatorio pasarle la planta L, el porcentaje de overshot OS, el 
+% tiempo de establecimiento ts y la ganancia estatica Kc (cabe aclarar
+% que ahora calcula para plantas tipo rampa, habria que modificar como 
+% calcula). Además se puede llamar con un punto especifico sd deseado,
+% y con T2 que seria el grado de libertad disponible.
+
+%Agustin Avila
+%Diciembre 2020
+%Matlab r2020b
+
 if nargin<5
 sd=puntosd(os,ts);
 end

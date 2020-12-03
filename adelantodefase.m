@@ -1,8 +1,9 @@
 function [compensador1,sd] = adelantodefase(planta,os,ts,sd)
-% [Gadelanto,sd]=ADELANTODEFASE(planta,os,ts) 
+% [Gadelanto,sd]=ADELANTODEFASE(planta,os,ts,sd) 
 % devuelve la funcion de transferencia de un compensador de adelanto
 % de fase con un oveshoot y tiempo de establecimiento dado, para 
-% la FTLA de la planta a controlar
+% la FTLA de la planta a controlar. sd es opcional para no utilizar los
+% calculos propios del programa.
 
 % Agustin Avila
 % Noviembre 2020
