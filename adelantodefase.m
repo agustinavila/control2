@@ -17,7 +17,7 @@ Gplanta=abs(evalfr(planta,sd));             %obtiene la ganancia en el punto
 n=1;
 while 1
     try
-        [polo,cero]=polocero(sd,fase/n,-3);              %obtiene polo y cero del compensador
+        [polo,cero]=polocero(sd,fase/n);              %obtiene polo y cero del compensador
         break;
     catch ME
         if(strcmp(ME.identifier,'Polocero:Titamax'))
