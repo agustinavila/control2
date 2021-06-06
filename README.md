@@ -1,6 +1,6 @@
 # control2
 
-Programas y trabajos escritos para la materia control 2
+Programas y trabajos escritos para la materia control 2. La materia se centra en el estudio del lugar de las raices (root locus) y el estudio mediante espacio de estados, observadores y controladores. Particularmente, me centré en generar algunas funciones en matlab para automatizar el calculo de compensadores, sobre todo utilizando el lugar de las raices.
 
 ## adelantodefase()
 
